@@ -1,18 +1,11 @@
 #!/usr/bin/python3
 
-safe_print_integer = __import__('1-safe_print_integer').safe_print_integer
-
-value = 89
-has_been_print = safe_print_integer(value)
-if not has_been_print:
-    print("{} is not an integer".format(value))
-
-value = -89
-has_been_print = safe_print_integer(value)
-if not has_been_print:
-    print("{} is not an integer".format(value))
-
-value = "School"
-has_been_print = safe_print_integer(value)
-if not has_been_print:
-    print("{} is not an integer".format(value))
+def safe_print_integer(value):
+    try:
+        # Attempt to format and print the value as an integer
+        formatted_value = "{:d}".format(value)
+        print(formatted_value)
+        print()  # Print a newline
+        return True
+    except (ValueError, TypeError):
+        return False
