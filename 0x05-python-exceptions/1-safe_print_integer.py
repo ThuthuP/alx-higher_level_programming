@@ -9,3 +9,17 @@ def safe_print_integer(value):
         return True
     except (ValueError, TypeError):
         return False
+
+# Example usage:
+value1 = 42
+value2 = "not an integer"
+
+if safe_print_integer(value1):
+    print("Value1 is an integer")
+else:
+    print("Value1 is not an integer")
+
+if safe_print_integer(value2):
+    print("Value2 is an integer")
+else:
+    print("Value2 is not an integer")
