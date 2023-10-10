@@ -1,59 +1,23 @@
 #!/usr/bin/python3
-"""Module 101-stats
-Reads from the standard input and computes metrics
-After every 10 lines the input of a keyboard interruption(CTRL + C),
-Prints the following statistics:
-    - Total file size upto that point
-    - Count of read status codes upto that point
-"""
+"""This module defines a class Student"""
 
 
-def print_stats(size, status_codes):
-    """Prints accumulated metrics
+class Student:
+    """Represent a student."""
 
-    Args:
-         size: Accumulated read file siez
-        status_codes: Accumulated count of status codes
-    """
-    print("File size: {}".format(size))
-    for key in sorted(status_codes):
-        print("{}: {}".format(key, status_codes[key]))
+    def __init__(self, first_name, last_name, age):
+        """Initializes a new Student
+        """
+        self.first_name = first_name
+        self.last_name = last_name
+        self.age = age
 
-
-if __name__ == "__main__":
-    import sys
-
-    size = 0
-    status_codes = {}
-    valid_codes = ['200', '301', '400', '401', '403', '404', '405', '500']
-    count = 0
-
-    try:
-        for line in sys.stdin:
-            if count == 10:
-                print_stats(size, status_codes)
-                count = 1
-            else:
-                count += 1
-
-            line = line.split()
-
-            try:
-                size += int(line[-1])
-            except (IndexError, ValueError):
-                pass
-
-            try:
-                if line[-2] in valid_codes:
-                    if status_codes.get(line[-2], -1) == -1:
-                        status_codes[line[-2]] = 1
-                    else:
-                        status_codes[line[-2]] += 1
-            except IndexError:
-                pass
-
-        print_stats(size, status_codes)
-
-    except KeyboardInterrupt:
-        print_stats(size, status_codes)
-        raise
+    def to_json(self, attrs=None):
+        """Get a dictionary representation of the Student
+        If attrs is a list of strings, represents only those attributes
+        included in the list
+        """
+        if (type(attrs) == list and
+                all(type(ele) == str for ele in attrs)):
+            return {k: getattr(self, k) for k in attrs if hasattr(self, k)}
+        return self.
